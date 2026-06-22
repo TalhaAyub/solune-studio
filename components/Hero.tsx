@@ -57,19 +57,19 @@ export default function Hero() {
 
             <div className="container-main">
 
-                <h1 className="relative z-10 flex flex-col items-center hero-font text-[120px] leading-[120px] tracking-[-3px] font-medium">
+                <h1 className="relative z-10 flex flex-col items-center hero-font text-[48px] leading-[48px] sm:text-[80px] sm:leading-[80px] md:text-[100px] md:leading-[100px] lg:text-[120px] lg:leading-[120px] tracking-[-1px] md:tracking-[-3px] font-medium w-full text-center">
 
-                    <div className="flex items-center gap-30 text-[120px] leading-[120px] tracking-[-3px] font-medium">
+                    <div className="flex items-center justify-center gap-3 sm:gap-6 md:gap-16 lg:gap-30 text-[48px] leading-[48px] sm:text-[80px] sm:leading-[80px] md:text-[100px] md:leading-[100px] lg:text-[120px] lg:leading-[120px] tracking-[-1px] md:tracking-[-3px] font-medium">
 
-                        <span className="relative left-[-43px]">Create</span>
+                        <span className="relative left-0 sm:left-[-15px] md:left-[-30px] lg:left-[-43px]">Create</span>
 
                         {/* Circle */}
 
                         <div
                             className="hero-circle bg-black rounded-full flex items-center justify-center
-  w-24 h-24
-  sm:w-32 sm:h-32
-  md:w-40 md:h-40
+  w-16 h-16
+  sm:w-28 sm:h-28
+  md:w-36 md:h-36
   lg:w-48 lg:h-48
   rounded-full bg-black text-white shrink-0 overflow-hidden"
                         >
@@ -77,7 +77,7 @@ export default function Hero() {
                             {/* SVG LOGO */}
 
                             <svg
-                                className="hero-logo w-24 h-24 md:w-24 md:h-24"
+                                className="hero-logo w-8 h-8 sm:w-14 sm:w-16 md:w-20 lg:w-24 h-8 sm:h-14 sm:h-16 md:h-20 lg:h-24"
                                 viewBox="0 0 88 96"
                                 fill="currentColor"
                             >
@@ -106,23 +106,23 @@ export default function Hero() {
 
                         </div>
 
-                        <span className="relative left-[-43px]">Build</span>
+                        <span className="relative left-0 sm:left-[-15px] md:left-[-30px] lg:left-[-43px]">Build</span>
 
                     </div>
 
-                    <span className="block text-8xl md:text-9xl text-[#86AA97] mt-8 font-clash ">
+                    <span className="block text-6xl sm:text-8xl md:text-9xl text-[#86AA97] mt-4 md:mt-8 font-clash">
                         Grow
                     </span>
 
 
 
                 </h1>
-                <div className="absolute bottom-20 left-0 w-full z-0">
+                <div className="absolute bottom-8 sm:bottom-12 md:bottom-20 left-0 w-full z-0">
                     <div className="max-w-[1440px] mx-auto px-6">
 
                         <div className="border-t border-black/20 mb-4"></div>
 
-                        <div className="flex justify-between text-lg tracking-widest uppercase font-clash font-medium ">
+                        <div className="flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0 text-xs sm:text-base lg:text-lg tracking-wider md:tracking-widest uppercase font-clash font-medium text-center">
                             <span>Discover Your Why</span>
                             <span>Share Your How</span>
                             <span>Own Your What</span>

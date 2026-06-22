@@ -144,8 +144,8 @@ export default function HowWeWork() {
                     {steps.map((step, index) => (
                         <div 
                             key={index} 
-                            style={{ top: `calc(15vh + ${index * 5.5}rem)` }}
-                            className="sticky border border-black/20 rounded-2xl md:rounded-3xl overflow-hidden bg-[#fafafa] min-h-[45vh] transition-all ease-in-out duration-300"
+                            style={{ "--card-top": `calc(15vh + ${index * 5.5}rem)` } as React.CSSProperties}
+                            className="relative md:sticky border border-black/20 rounded-2xl md:rounded-3xl overflow-hidden bg-[#fafafa] min-h-[45vh] transition-all ease-in-out duration-300 md:top-[var(--card-top)]"
                         >
                             {/* Header */}
                             <div className="h-[5.5rem] bg-black/5 px-6 md:px-12 flex items-center gap-4 border-b border-black/20 backdrop-blur-sm">

@@ -8,8 +8,8 @@ interface WorkSectionProps {
 
 export default function WorkSection({ isOurWorkPage = false }: WorkSectionProps) {
   return (
-    <section className="min-h-screen text-black px-6 md:px-20 py-24 font-clash max-w-[1440px] mx-auto">
-      <div className="w-full">
+    <section className="w-full min-h-screen text-white px-6 md:px-20 py-24 font-clash relative overflow-hidden texture-dark">
+      <div className="max-w-[1440px] mx-auto relative z-10 w-full">
         {/* Header Area */}
         <div className="flex flex-col lg:flex-row justify-between items-start mb-24 lg:mb-32">
           <div className="max-w-4xl">
@@ -44,7 +44,7 @@ export default function WorkSection({ isOurWorkPage = false }: WorkSectionProps)
               design solutions that help you drive change.
             </h2>
           </div>
-          <div className="lg:max-w-xs mt-12 lg:mt-[11rem] text-gray-600 text-sm md:text-base leading-relaxed font-medium">
+          <div className="lg:max-w-xs mt-12 lg:mt-[11rem] text-[#888] text-sm md:text-base leading-relaxed font-medium">
             Empowering tech companies with innovative design solutions, enabling
             them to drive impactful change.
           </div>
@@ -62,16 +62,14 @@ export default function WorkSection({ isOurWorkPage = false }: WorkSectionProps)
                   src={projects[0].image}
                   alt={projects[0].title}
                   fill
-                  className={`object-cover group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)] ${
-                    isOurWorkPage ? "grayscale contrast-[1.10] brightness-[0.85] group-hover:grayscale-0 group-hover:brightness-100 group-hover:contrast-100" : ""
-                  }`}
+                  className={`object-cover group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)] ${isOurWorkPage ? "grayscale contrast-[1.10] brightness-[0.85] group-hover:grayscale-0 group-hover:brightness-100 group-hover:contrast-100" : ""
+                    }`}
                 />
                 {/* Overlay gradients for readability */}
-                <div className={`absolute inset-0 transition-all duration-500 group-hover:opacity-0 ${
-                  isOurWorkPage
+                <div className={`absolute inset-0 transition-all duration-500 group-hover:opacity-0 ${isOurWorkPage
                     ? "bg-gradient-to-b from-black/50 via-transparent to-white/10 mix-blend-overlay opacity-90"
                     : "bg-gradient-to-b from-black/15 via-transparent to-black/15"
-                }`}></div>
+                  }`}></div>
                 {/* Additional gradient layer to enhance black & white look and readability */}
                 {isOurWorkPage && (
                   <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/70 pointer-events-none z-0 transition-all duration-500 group-hover:opacity-0"></div>
@@ -119,16 +117,14 @@ export default function WorkSection({ isOurWorkPage = false }: WorkSectionProps)
                     src={project.image}
                     alt={project.title}
                     fill
-                    className={`object-cover group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)] ${
-                      isOurWorkPage ? "grayscale contrast-[1.10] brightness-[0.85] group-hover:grayscale-0 group-hover:brightness-100 group-hover:contrast-100" : ""
-                    }`}
+                    className={`object-cover group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.33,1,0.68,1)] ${isOurWorkPage ? "grayscale contrast-[1.10] brightness-[0.85] group-hover:grayscale-0 group-hover:brightness-100 group-hover:contrast-100" : ""
+                      }`}
                   />
                   {/* Overlay gradients for readability */}
-                  <div className={`absolute inset-0 transition-all duration-500 group-hover:opacity-0 ${
-                    isOurWorkPage
+                  <div className={`absolute inset-0 transition-all duration-500 group-hover:opacity-0 ${isOurWorkPage
                       ? "bg-gradient-to-b from-black/50 via-transparent to-white/10 mix-blend-overlay opacity-90"
                       : "bg-gradient-to-b from-black/15 via-transparent to-black/15"
-                  }`}></div>
+                    }`}></div>
                   {/* Additional gradient layer to enhance black & white look and readability */}
                   {isOurWorkPage && (
                     <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/70 pointer-events-none z-0 transition-all duration-500 group-hover:opacity-0"></div>
