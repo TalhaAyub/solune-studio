@@ -107,10 +107,10 @@ export function TestimonialsVariant() {
             </p>
             <h2 className="text-4xl md:text-5xl lg:text-[4.5rem] font-medium leading-[1.1] tracking-tight max-w-[900px]">
               Hear what our{" "}
-              <span className="hero-font italic relative inline-block">
+              <span className="hero-font italic text-[#A0BEB0] relative inline-block">
                 clients
                 <svg
-                  className="absolute -bottom-3 left-0 w-[110%] h-[16px] text-black/30 -translate-x-2"
+                  className="absolute -bottom-3 left-0 w-[110%] h-[16px] text-[#86AA97] -translate-x-2"
                   viewBox="0 0 100 20"
                   preserveAspectRatio="none"
                 >
