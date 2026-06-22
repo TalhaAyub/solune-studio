@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,28 +10,41 @@ export default function Navbar() {
     const pathname = usePathname();
     const isDarkPage = pathname?.startsWith("/our-work");
     const [isOpen, setIsOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const toggleMenu = () => setIsOpen(!isOpen);
     const closeMenu = () => setIsOpen(false);
 
+    const hasMarquee = pathname === "/";
+
     return (
         <>
             {/* LOGO LAYER */}
-            <div className="absolute top-6 md:top-12 left-0 w-full z-[100] pointer-events-none">
+            <div className={`absolute left-0 w-full pointer-events-none transition-all duration-300 ${
+                isOpen ? "z-[300]" : "z-[100]"
+            } ${
+                hasMarquee ? "top-14 md:top-20" : "top-6 md:top-12"
+            }`}>
                 <div className="max-w-[1440px] w-full px-6 md:px-20 mx-auto flex items-center justify-between">
                     <Link href="/" className="cursor-pointer z-100 block pointer-events-auto">
                         <img
                             src="/logo with name.svg"
                             alt="Solune Studio"
-                            className={`h-14 md:h-24 w-auto nav-logo transition-all duration-300 ${isDarkPage ? "invert" : ""}`}
+                            className={`h-14 md:h-24 w-auto nav-logo transition-all duration-300 ${
+                                (isDarkPage || isOpen) ? "invert" : ""
+                            }`}
                         />
                     </Link>
 
                     {/* Mobile Hamburger Button */}
                     <button
                         onClick={toggleMenu}
-                        className={`flex md:hidden pointer-events-auto items-center justify-center p-3 rounded-full border transition-all duration-300 ${
-                            isDarkPage 
+                        className={`flex pointer-events-auto items-center justify-center p-3 rounded-full border transition-all duration-300 md:hidden ${
+                            (isDarkPage || isOpen)
                             ? "bg-white/10 border-white/20 text-white hover:bg-white/20" 
                             : "bg-black/5 border-black/10 text-black hover:bg-black/10"
                         }`}
@@ -78,57 +91,59 @@ export default function Navbar() {
             </div>
 
             {/* MOBILE NAVIGATION OVERLAY */}
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "100vh" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
-                        className="fixed inset-0 w-full h-screen bg-black/95 backdrop-blur-xl z-[250] flex flex-col justify-center items-center px-8 text-white overflow-hidden pointer-events-auto"
-                    >
-                        {/* Mobile Menu Links */}
-                        <div className="flex flex-col items-center gap-8 text-center mt-12 w-full">
-                            {[
-                                { name: "Home", href: "/" },
-                                { name: "About", href: "/about" },
-                                { name: "Services", href: "/services" },
-                                { name: "Our Work", href: "/our-work" }
-                            ].map((item, idx) => (
+            <div className="block">
+                <AnimatePresence>
+                    {mounted && isOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "100vh" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
+                            className="fixed inset-0 w-full h-screen bg-black/95 backdrop-blur-xl z-[250] flex flex-col justify-center items-center px-8 text-white overflow-hidden pointer-events-auto"
+                        >
+                            {/* Mobile Menu Links */}
+                            <div className="flex flex-col items-center gap-8 text-center mt-12 w-full">
+                                {[
+                                    { name: "Home", href: "/" },
+                                    { name: "About", href: "/about" },
+                                    { name: "Services", href: "/services" },
+                                    { name: "Our Work", href: "/our-work" }
+                                ].map((item, idx) => (
+                                    <motion.div
+                                        key={item.name}
+                                        initial={{ opacity: 0, y: 30 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.1 + idx * 0.1, duration: 0.4 }}
+                                    >
+                                        <Link
+                                            href={item.href}
+                                            onClick={closeMenu}
+                                            className="text-4xl font-medium tracking-tight hover:text-[#A0BEB0] transition-colors duration-300 block"
+                                        >
+                                            {item.name}
+                                        </Link>
+                                    </motion.div>
+                                ))}
+
                                 <motion.div
-                                    key={item.name}
                                     initial={{ opacity: 0, y: 30 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.1 + idx * 0.1, duration: 0.4 }}
+                                    transition={{ delay: 0.5, duration: 0.4 }}
+                                    className="mt-8 w-full max-w-xs"
                                 >
                                     <Link
-                                        href={item.href}
+                                        href="/contact"
                                         onClick={closeMenu}
-                                        className="text-4xl font-medium tracking-tight hover:text-[#A0BEB0] transition-colors duration-300 block"
+                                        className="bg-[#A0BEB0] text-black w-full py-4 rounded-full text-xl font-bold flex items-center justify-center border border-black hover:bg-[#789b89] transition-colors duration-300 block text-center"
                                     >
-                                        {item.name}
+                                        Let&apos;s Talk!
                                     </Link>
                                 </motion.div>
-                            ))}
-
-                            <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.5, duration: 0.4 }}
-                                className="mt-8 w-full max-w-xs"
-                            >
-                                <Link
-                                    href="/contact"
-                                    onClick={closeMenu}
-                                    className="bg-[#A0BEB0] text-black w-full py-4 rounded-full text-xl font-bold flex items-center justify-center border border-black hover:bg-[#789b89] transition-colors duration-300 block text-center"
-                                >
-                                    Let&apos;s Talk!
-                                </Link>
-                            </motion.div>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
         </>
     );
 }
