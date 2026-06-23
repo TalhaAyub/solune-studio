@@ -11,9 +11,19 @@ export default function Navbar() {
     const isDarkPage = pathname?.startsWith("/our-work");
     const [isOpen, setIsOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
 
     useEffect(() => {
         setMounted(true);
+        const handleScroll = () => {
+            if (window.scrollY > 20) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     const toggleMenu = () => setIsOpen(!isOpen);
@@ -23,27 +33,76 @@ export default function Navbar() {
 
     return (
         <>
-            {/* LOGO LAYER */}
-            <div className={`absolute left-0 w-full pointer-events-none transition-all duration-300 ${
-                isOpen ? "z-[300]" : "z-[100]"
+            {/* HEADER LAYER */}
+            <div className={`fixed left-0 w-full pointer-events-none transition-all duration-300 ${
+                isOpen ? "z-[300]" : "z-[200]"
             } ${
-                hasMarquee ? "top-14 md:top-20" : "top-6 md:top-12"
+                isScrolled
+                ? (hasMarquee ? "top-4 md:top-4" : "top-2 md:top-4")
+                : (hasMarquee ? "top-14 md:top-20" : "top-6 md:top-12")
             }`}>
                 <div className="max-w-[1440px] w-full px-6 md:px-20 mx-auto flex items-center justify-between">
                     <Link href="/" className="cursor-pointer z-100 block pointer-events-auto">
                         <img
                             src="/logo with name.svg"
                             alt="Solune Studio"
-                            className={`h-14 md:h-24 w-auto nav-logo transition-all duration-300 ${
+                            className={`w-auto nav-logo transition-all duration-300 ${
+                                isScrolled ? "h-10 md:h-14" : "h-14 md:h-24"
+                            } ${
                                 (isDarkPage || isOpen) ? "invert" : ""
                             }`}
                         />
                     </Link>
 
+                    {/* DESKTOP NAV LINKS */}
+                    <div className="hidden md:block pointer-events-auto">
+                        <div className={`bg-white text-black rounded-full flex items-center gap-2 shadow-[0_0_15px_rgba(0,0,0,0.08)] transition-all duration-300 ${
+                            isScrolled ? "px-3 py-1.5" : "px-4 py-2"
+                        }`}>
+                            <Link href="/about" className={`group font-medium rounded-full hover:bg-[#A0BEB0] transition-all duration-300 cursor-pointer overflow-hidden flex items-center justify-center ${
+                                isScrolled ? "text-base px-4 py-1.5" : "text-lg px-5 py-2"
+                            }`}>
+                                <span className="relative overflow-hidden inline-flex">
+                                    <span className="block transition-transform duration-200 ease-in-out group-hover:-translate-y-[120%]">About</span>
+                                    <span className="absolute top-full left-0 w-full text-center transition-transform duration-200 ease-in-out group-hover:-translate-y-full text-black">About</span>
+                                </span>
+                            </Link>
+
+                            <Link href="/services" className={`group font-medium rounded-full hover:bg-[#A0BEB0] transition-all duration-300 cursor-pointer overflow-hidden flex items-center justify-center ${
+                                isScrolled ? "text-base px-4 py-1.5" : "text-lg px-5 py-2"
+                            }`}>
+                                <span className="relative overflow-hidden inline-flex">
+                                    <span className="block transition-transform duration-200 ease-in-out group-hover:-translate-y-[120%]">Services</span>
+                                    <span className="absolute top-full left-0 w-full text-center transition-transform duration-200 ease-in-out group-hover:-translate-y-full text-black">Services</span>
+                                </span>
+                            </Link>
+
+                            <Link href="/our-work" className={`group font-medium rounded-full hover:bg-[#A0BEB0] transition-all duration-300 cursor-pointer overflow-hidden flex items-center justify-center ${
+                                isScrolled ? "text-base px-4 py-1.5" : "text-lg px-5 py-2"
+                            }`}>
+                                <span className="relative overflow-hidden inline-flex">
+                                    <span className="block transition-transform duration-200 ease-in-out group-hover:-translate-y-[120%]">Our Work</span>
+                                    <span className="absolute top-full left-0 w-full text-center transition-transform duration-200 ease-in-out group-hover:-translate-y-full text-black">Our Work</span>
+                                </span>
+                            </Link>
+
+                            <Link href="/contact" className={`group bg-[#A0BEB0] text-black rounded-full border border-black hover:bg-[#789b89] hover:scale-105 active:scale-95 transition-all duration-300 overflow-hidden flex items-center justify-center block ${
+                                isScrolled ? "px-6 py-2 text-base ml-2" : "px-8 py-2.5 text-lg font-medium ml-4"
+                            }`}>
+                                <span className="relative overflow-hidden inline-flex">
+                                    <span className="block transition-transform duration-200 ease-in-out group-hover:-translate-y-[120%]">Let&apos;s Talk!</span>
+                                    <span className="absolute top-full left-0 w-full text-center transition-transform duration-200 ease-in-out group-hover:-translate-y-full">Let&apos;s Talk!</span>
+                                </span>
+                            </Link>
+                        </div>
+                    </div>
+
                     {/* Mobile Hamburger Button */}
                     <button
                         onClick={toggleMenu}
-                        className={`flex pointer-events-auto items-center justify-center p-3 rounded-full border transition-all duration-300 md:hidden ${
+                        className={`flex pointer-events-auto items-center justify-center rounded-full border transition-all duration-300 md:hidden ${
+                            isScrolled ? "p-2" : "p-3"
+                        } ${
                             (isDarkPage || isOpen)
                             ? "bg-white/10 border-white/20 text-white hover:bg-white/20" 
                             : "bg-black/5 border-black/10 text-black hover:bg-black/10"
@@ -52,41 +111,6 @@ export default function Navbar() {
                     >
                         {isOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
-                </div>
-            </div>
-
-            {/* DESKTOP NAV LINKS LAYER */}
-            <div className="fixed top-12 left-0 w-full z-[200] pointer-events-none hidden md:block">
-                <div className="max-w-[1440px] w-full px-6 md:px-20 mx-auto flex justify-end">
-                    <div className="bg-white text-black rounded-full px-4 py-2 flex items-center gap-2 shadow-[0_0_15px_rgba(0,0,0,0.08)] transition-all duration-300 pointer-events-auto">
-                        <Link href="/about" className="group text-lg font-medium px-5 py-2 rounded-full hover:bg-[#A0BEB0] transition-colors duration-300 cursor-pointer overflow-hidden flex items-center justify-center">
-                            <span className="relative overflow-hidden inline-flex">
-                                <span className="block transition-transform duration-200 ease-in-out group-hover:-translate-y-[120%]">About</span>
-                                <span className="absolute top-full left-0 w-full text-center transition-transform duration-200 ease-in-out group-hover:-translate-y-full text-black">About</span>
-                            </span>
-                        </Link>
-
-                        <Link href="/services" className="group text-lg font-medium px-5 py-2 rounded-full hover:bg-[#A0BEB0] transition-colors duration-300 cursor-pointer overflow-hidden flex items-center justify-center">
-                            <span className="relative overflow-hidden inline-flex">
-                                <span className="block transition-transform duration-200 ease-in-out group-hover:-translate-y-[120%]">Services</span>
-                                <span className="absolute top-full left-0 w-full text-center transition-transform duration-200 ease-in-out group-hover:-translate-y-full text-black">Services</span>
-                            </span>
-                        </Link>
-
-                        <Link href="/our-work" className="group text-lg font-medium px-5 py-2 rounded-full hover:bg-[#A0BEB0] transition-colors duration-300 cursor-pointer overflow-hidden flex items-center justify-center">
-                            <span className="relative overflow-hidden inline-flex">
-                                <span className="block transition-transform duration-200 ease-in-out group-hover:-translate-y-[120%]">Our Work</span>
-                                <span className="absolute top-full left-0 w-full text-center transition-transform duration-200 ease-in-out group-hover:-translate-y-full text-black">Our Work</span>
-                            </span>
-                        </Link>
-
-                        <Link href="/contact" className="group bg-[#A0BEB0] text-black px-8 py-2.5 rounded-full text-lg font-medium border border-black hover:bg-[#789b89] hover:scale-105 active:scale-95 transition-all duration-300 ml-4 overflow-hidden flex items-center justify-center block">
-                            <span className="relative overflow-hidden inline-flex">
-                                <span className="block transition-transform duration-200 ease-in-out group-hover:-translate-y-[120%]">Let&apos;s Talk!</span>
-                                <span className="absolute top-full left-0 w-full text-center transition-transform duration-200 ease-in-out group-hover:-translate-y-full">Let&apos;s Talk!</span>
-                            </span>
-                        </Link>
-                    </div>
                 </div>
             </div>
 
